@@ -1,31 +1,25 @@
 <template>
-  <div>{{person}}</div>
-  <button @click="update1">按钮一</button>
-  <button @click="update2">按钮二</button>
+  <div>{{ reactivePerson }}</div>
+  <div>{{ toRawPerson }}</div>
+  <button @click="update">按钮</button>
 </template>
-
 <script>
-  import { shallowRef, shallowReactive,toRef } from 'vue'
+  import { reactive, toRaw } from 'vue';
+
   export default {
     setup() {
-      const person = shallowRef({
-        name: '橙某人',
-      });
+      const person = { name: '橙某人', age: 18 };
+      const reactivePerson = reactive(person);
+      const toRawPerson = toRaw(reactivePerson);
 
-      function update1() {
-        console.log('person', person)
-        person.value.name = 'YDYDYDQ';
-        console.log(person.value); // {name: 'YDYDYDQ'}
+      console.log(person === toRawPerson); // true
+
+      function update() {
+        toRawPerson.name = 'YDYDYDQ';
+        console.log(person, reactivePerson, toRawPerson);
       }
 
-      function update2() {
-        person.value = {
-          name: 'ydydydq'
-        };
-        console.log(person.value); // {name: 'ydydydq'}
-      }
-
-      return { person, update1, update2 };
+      return { reactivePerson, toRawPerson, update };
     }
   }
 </script>
