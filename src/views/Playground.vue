@@ -1,31 +1,31 @@
 <template>
-  <div>
-    <button @click="update1">按钮1</button>
-    <button @click="update2">按钮2</button>
-  </div>
+  <div>{{person}}</div>
+  <button @click="update1">按钮一</button>
+  <button @click="update2">按钮二</button>
 </template>
 
 <script>
-  import { ref, watchEffect } from 'vue';
+  import { shallowRef, shallowReactive,toRef } from 'vue'
   export default {
     setup() {
-      const name = ref('橙某人');
-      const age = ref(18);
-
-      watchEffect(() => {
-        console.log('**********');
-        console.log(name.value);
-        console.log(age.value);
+      const person = shallowRef({
+        name: '橙某人',
       });
 
       function update1() {
-        name.value = 'YDYDYDQ';
-      }
-      function update2() {
-        age.value = 20;
+        console.log('person', person)
+        person.value.name = 'YDYDYDQ';
+        console.log(person.value); // {name: 'YDYDYDQ'}
       }
 
-      return { update1, update2 }
+      function update2() {
+        person.value = {
+          name: 'ydydydq'
+        };
+        console.log(person.value); // {name: 'ydydydq'}
+      }
+
+      return { person, update1, update2 };
     }
   }
 </script>
