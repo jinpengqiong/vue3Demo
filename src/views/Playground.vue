@@ -16,6 +16,7 @@
 
       function update() {
         toRawPerson.name = 'YDYDYDQ';
+        reactivePerson.name = '212123123'
         console.log(person, reactivePerson, toRawPerson);
       }
 
